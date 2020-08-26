@@ -3,12 +3,12 @@
     <v-row align="center" justify="center" class="my-10">
       <v-col md="9">
         <v-card class="mx-auto my-8 shadow__ pa-5 radius" color="#FAFAFA">
-          <v-card-title class="justify-center my-2 text-md-h4 font-weight-bold">User Registration</v-card-title>
+          <v-card-title class="justify-center my-2 text-md-h4 font-weight-bold">Login</v-card-title>
 
           <v-divider class="mx-4 my-5"></v-divider>
 
           <v-card-text class="my-7">
-            <v-form @submit.prevent="sendDataToDB">
+            <v-form @submit.prevent="login">
               <v-row>
                 <v-col cols="12">
                   <v-text-field
@@ -49,15 +49,10 @@
 
 <script>
 import { mdiEmail, mdiLockQuestion } from '@mdi/js'
-import { firebaseAuth } from '../services/firebase'
-import { mapActions } from 'vuex'
 
-// Setting doc path in db
-// const documentPath = 'user/'
 export default {
   data() {
     return {
-      firebaseData: null,
       mdiEmail,
       mdiLockQuestion,
       showPassword: false,
@@ -75,23 +70,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('notification', ['add']),
-
-    async sendDataToDB() {
-      try {
-        const { user } = await firebaseAuth.createUserWithEmailAndPassword(
-          this.email,
-          this.password
-        )
-
-        console.log(user)
-      } catch (err) {
-        this.add({
-          type: 'error',
-          massage: `There was a problem with your resgistration ${err}`
-        })
-      }
-    }
+    login() {}
   }
 }
 </script>

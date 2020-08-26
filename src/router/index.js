@@ -5,6 +5,7 @@ import JobShow from '@/views/JobShow.vue'
 import Register from '@/views/Register.vue'
 import Search from '@/views/Search.vue'
 import Dashboard from '@/views/Dashboard.vue'
+import Login from '@/views/Login.vue'
 import NProgress from 'nprogress'
 import store from '@/store'
 import { firebaseAuth } from '@/services/firebase'
@@ -52,6 +53,12 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
 
   {
