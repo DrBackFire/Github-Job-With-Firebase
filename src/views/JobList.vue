@@ -1,5 +1,5 @@
 <template>
-  <v-container style="max-width: 1200px">
+  <v-container class="px-10">
     <v-row align="center" justify="center">
       <v-col cols="12">
         <h3>Total jobs found: {{ jobs.length }}</h3>
@@ -11,7 +11,10 @@
     <v-row align="center" justify="center" v-if="!jobs.length">
       <v-col cols="12">
         <h2>No Results!</h2>
-        <h3>Please search again</h3>
+        <h3>
+          Please
+          <router-link to="/">Search again</router-link>
+        </h3>
       </v-col>
     </v-row>
   </v-container>
