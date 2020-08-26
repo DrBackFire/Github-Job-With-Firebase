@@ -4,8 +4,10 @@ import JobList from '@/views/JobList.vue'
 import JobShow from '@/views/JobShow.vue'
 import Register from '@/views/Register.vue'
 import Search from '@/views/Search.vue'
+import Dashboard from '@/views/Dashboard.vue'
 import NProgress from 'nprogress'
 import store from '@/store'
+import { firebaseAuth } from '@/services/firebase'
 
 Vue.use(VueRouter)
 
@@ -38,9 +40,9 @@ const routes = [
     name: 'job-Show',
     component: JobShow,
     props: true,
-    beforeEnter(routeTo, routeFrom, next) {
-      store.dispatch('job/getOne', routeTo.params.id).then(job => {
-        routeTo.params.job = job // Setting the props to what the api returned, to display data
+    beforeEnter(to, from, next) {
+      store.dispatch('job/getOne', to.params.id).then(job => {
+        to.params.job = job // Setting the props to what the api returned, to display data
         next()
       })
     }
@@ -50,6 +52,16 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+    meta: {
+      // protecting route
+      requiresAuth: true
+    }
   }
 ]
 
@@ -60,13 +72,17 @@ const router = new VueRouter({
   // : [...{ path: '*', component: NotFoundComponent }]
 })
 
-router.beforeEach((routeTo, routeFrom, next) => {
+router.beforeEach((to, from, next) => {
   NProgress.start()
-  next()
-})
 
-router.afterEach(() => {
-  NProgress.done()
+  // checking if route has the requiresAuth meta property set to true and the user is not logged in
+  const requiresAuth = to.matched.some(route => route.meta.requiresAuth)
+
+  if (requiresAuth && firebaseAuth.currentUser) {
+    next('/register')
+  } else {
+    next()
+  }
 })
 
 router.afterEach(() => {

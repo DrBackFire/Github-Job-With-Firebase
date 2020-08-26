@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
+// firebase init
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyDCNeIWYSG6XTDOTDiiQn0V23mxJYUeHQQ',
   authDomain: 'githubj-obs.firebaseapp.com',
@@ -13,6 +14,20 @@ const firebaseApp = firebase.initializeApp({
   measurementId: 'G-QJKQFHBMD4'
 })
 
-export const db = firebaseApp.firestore()
+// utils
+const db = firebaseApp.firestore()
+const firebaseAuth = firebaseApp.auth()
 
-export const firebaseAuth = firebaseApp.auth()
+// collection ref
+const usersCollection = db.collection('users')
+const savedJobsCollection = db.collection('savedJobsCollection')
+const appliedJobsCollection = db.collection('appliedJobsCollection')
+
+// export utils/refs
+export {
+  db,
+  firebaseAuth,
+  usersCollection,
+  savedJobsCollection,
+  appliedJobsCollection
+}

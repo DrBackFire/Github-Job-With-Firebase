@@ -1,5 +1,5 @@
 import { jobs } from './jobsDBy'
-import { db } from './index'
+import { db } from '../index'
 
 export const add = () => {
   jobs.forEach(function(job) {
