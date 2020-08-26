@@ -8,7 +8,7 @@
           <v-divider class="mx-4 my-5"></v-divider>
 
           <v-card-text class="my-7">
-            <v-form @submit.prevent="sendDataToDB">
+            <v-form @submit.prevent="register">
               <v-row>
                 <v-col cols="12">
                   <v-text-field
@@ -48,36 +48,17 @@
 </template>
 
 <script>
-import { mdiEmail, mdiLockQuestion } from '@mdi/js'
+import { loginRegisterMixin } from '@/mixins/loginRegisterMixin'
 import { firebaseAuth } from '../services/firebase'
 import { mapActions } from 'vuex'
 
-// Setting doc path in db
-// const documentPath = 'user/'
 export default {
-  data() {
-    return {
-      firebaseData: null,
-      mdiEmail,
-      mdiLockQuestion,
-      showPassword: false,
-      email: '',
-      password: '',
-      rules: [
-        value => !!value || 'Required.',
-        value => (value || '').length <= 20 || 'Max 20 characters',
-        value => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Invalid e-mail.'
-        }
-      ]
-    }
-  },
+  mixins: [loginRegisterMixin],
 
   methods: {
     ...mapActions('notification', ['add']),
 
-    async sendDataToDB() {
+    async register() {
       try {
         const { user } = await firebaseAuth.createUserWithEmailAndPassword(
           this.email,
@@ -88,7 +69,7 @@ export default {
       } catch (err) {
         this.add({
           type: 'error',
-          massage: `There was a problem with your resgistration ${err}`
+          massage: err
         })
       }
     }
