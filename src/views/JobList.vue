@@ -1,13 +1,20 @@
 <template>
-  <v-container style="max-width: 1200px">
+  <v-container fluid>
+    <!-- Total jobs -->
     <v-row align="center" justify="center">
-      <v-col cols="12">
+      <v-col cols="8">
         <h3>Total jobs found: {{ jobs.length }}</h3>
       </v-col>
     </v-row>
 
-    <JobCard v-for="job in jobs" :key="job.id" :job="job" />
+    <!-- Job Card -->
+    <v-row justify="center" align="center">
+      <v-col sm="12" md="8">
+        <JobCard v-for="job in jobs" :key="job.id" :job="job" />
+      </v-col>
+    </v-row>
 
+    <!-- Not found -->
     <v-row align="center" justify="center" v-if="!jobs.length">
       <v-col cols="12">
         <h2>No Results!</h2>

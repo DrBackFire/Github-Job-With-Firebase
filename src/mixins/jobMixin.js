@@ -1,3 +1,4 @@
+import { mapActions, mapGetters } from 'vuex'
 import { truncate, stripTags } from '@/utili'
 import { format } from 'date-fns'
 import marked from 'marked'
@@ -7,7 +8,8 @@ import {
   mdiStarOutline,
   mdiMapMarker,
   mdiCalendarClock,
-  mdiAccountClock
+  mdiAccountClock,
+  mdiStar
 } from '@mdi/js'
 
 export const jobMixin = {
@@ -27,7 +29,26 @@ export const jobMixin = {
       mdiStarOutline,
       mdiMapMarker,
       mdiCalendarClock,
-      mdiAccountClock
+      mdiAccountClock,
+      mdiStar,
+      isLoading: false
     }
-  }
+  },
+
+  methods: {
+    ...mapActions('user', ['savedJobs', 'removeSavedJob']),
+
+    saveJob(job) {
+      this.isLoading = true
+      this.savedJobs(job).then(() => (this.isLoading = false))
+    },
+
+    unSaveJob(job) {
+      this.isLoading = true
+
+      this.removeSavedJob(job).then(() => (this.isLoading = false))
+    }
+  },
+
+  computed: mapGetters('user', ['savedJob'])
 }

@@ -15,4 +15,18 @@ const firebaseApp = firebase.initializeApp({
 
 export const db = firebaseApp.firestore()
 
-export const firebaseAuth = firebaseApp.auth()
+// collection ref
+const jobsCollection = db.collection('jobs')
+const usersCollection = db.collection('users')
+const savedJobsCollection = db.collection('savedJobsCollection')
+const appliedJobsCollection = db.collection('appliedJobsCollection')
+
+// export utils/refs
+export {
+  db,
+  firebaseAuth,
+  jobsCollection,
+  usersCollection,
+  savedJobsCollection,
+  appliedJobsCollection
+}

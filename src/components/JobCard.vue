@@ -62,10 +62,33 @@
         >More Details</v-btn
       >
       <v-spacer></v-spacer>
-      <v-btn color="success darken-2" text class="font-weight-bold">
-        <v-icon left>{{ mdiStarOutline }}</v-icon
-        >Save
-      </v-btn>
+      <!-- Toggle Save -->
+      <template v-if="!savedJob(job.id)">
+        <v-btn
+          :loading="isLoading"
+          @click="saveJob(job)"
+          color="success darken-2"
+          text
+          class="font-weight-bold"
+        >
+          <v-icon left>{{ mdiStarOutline }}</v-icon
+          >Save
+        </v-btn>
+      </template>
+
+      <!-- Saved -->
+      <template v-else>
+        <v-btn
+          :loading="isLoading"
+          @click="unSaveJob(job)"
+          color="success darken-2"
+          text
+          class="font-weight-bold"
+        >
+          <v-icon left>{{ mdiStar }}</v-icon
+          >Saved
+        </v-btn>
+      </template>
     </v-card-actions>
   </v-card>
 </template>

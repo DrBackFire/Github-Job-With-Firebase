@@ -4,13 +4,13 @@
       <v-col md="9">
         <v-card class="mx-auto my-8 shadow__ pa-5 radius" color="#FAFAFA">
           <v-card-title class="justify-center my-2 text-md-h4 font-weight-bold"
-            >User Registration</v-card-title
+            >Login</v-card-title
           >
 
           <v-divider class="mx-4 my-5"></v-divider>
 
           <v-card-text class="my-7">
-            <v-form @submit.prevent="userRegister">
+            <v-form @submit.prevent="userLogin">
               <v-row>
                 <v-col cols="12">
                   <v-text-field
@@ -22,8 +22,7 @@
                     :rules="rules"
                   />
                 </v-col>
-
-                <v-col cols="12">
+                <v-col>
                   <v-text-field
                     hide-details="auto"
                     label="Password"
@@ -33,28 +32,6 @@
                     :prepend-icon="mdiLockQuestion"
                     @click:append="showPassword = !showPassword"
                     :rules="[v => !!v || 'Password is required']"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-text-field
-                    hide-details="auto"
-                    label="Name"
-                    type="text "
-                    v-model="user.name"
-                    :prepend-icon="mdiAccount"
-                    :rules="[v => !!v || 'Name is required']"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <v-text-field
-                    hide-details="auto"
-                    label="Title"
-                    type="text "
-                    v-model="user.title"
-                    :prepend-icon="mdiAccount"
-                    :rules="[v => !!v || 'Title is required']"
                   />
                 </v-col>
               </v-row>
@@ -78,44 +55,16 @@
 import { loginRegisterMixin } from '@/mixins/loginRegisterMixin'
 import { mapActions } from 'vuex'
 
-// Setting doc path in db
-// const documentPath = 'user/'
 export default {
-  data() {
-    return {
-      firebaseData: null,
-      mdiEmail,
-      mdiLockQuestion,
-      showPassword: false,
-      email: '',
-      password: '',
-      rules: [
-        value => !!value || 'Required.',
-        value => (value || '').length <= 20 || 'Max 20 characters',
-        value => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Invalid e-mail.'
-        }
-      ]
-    }
-  },
-
-  // this method comes from vuefire plugin resgistered in main.js
-  // firestore() {
-  //   return {
-  //     firebaseData: db.doc(documentPath)
-  //   }
-  // },
+  mixins: [loginRegisterMixin],
 
   methods: {
-    ...mapActions('user', ['register']),
+    ...mapActions('user', ['login']),
 
-    userRegister() {
-      this.register({
+    userLogin() {
+      this.login({
         email: this.user.email,
-        password: this.user.password,
-        name: this.user.name,
-        title: this.user.title
+        password: this.user.password
       })
     }
   }
