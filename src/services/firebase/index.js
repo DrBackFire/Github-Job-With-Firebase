@@ -13,7 +13,8 @@ const firebaseApp = firebase.initializeApp({
   measurementId: 'G-QJKQFHBMD4'
 })
 
-export const db = firebaseApp.firestore()
+const db = firebaseApp.firestore()
+const firebaseAuth = firebaseApp.auth()
 
 // collection ref
 const jobsCollection = db.collection('jobs')
@@ -23,7 +24,6 @@ const appliedJobsCollection = db.collection('appliedJobsCollection')
 
 // export utils/refs
 export {
-  db,
   firebaseAuth,
   jobsCollection,
   usersCollection,

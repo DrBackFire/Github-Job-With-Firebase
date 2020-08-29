@@ -4,7 +4,9 @@
       <v-col sm="12" md="12" lg="8" class="px-5">
         <h1 class="mt-3">{{ job.title }}</h1>
 
-        <v-list-item-subtitle class="grey--text mb-3">{{ job.company }}</v-list-item-subtitle>
+        <v-list-item-subtitle class="grey--text mb-3">{{
+          job.company
+        }}</v-list-item-subtitle>
 
         <div v-html="marked(job.description)" />
         <v-divider class="mx-4 my-5"></v-divider>
@@ -17,24 +19,39 @@
       <v-col>
         <v-card class="mx-auto mt-5 shadow__">
           <v-row justify="center" align-content="center" class="pa-7">
-            <v-btn color="blue darken-4 white--text" block large>Apply Now via GitHub Jobs</v-btn>
+            <v-btn color="blue darken-4 white--text" block large
+              >Apply Now via GitHub Jobs</v-btn
+            >
           </v-row>
           <v-divider></v-divider>
           <v-row justify="center" class="pa-5">
             <!-- Toggle Save -->
             <v-col v-if="!savedJob(job.id)">
-              <v-btn :loading="isLoading" @click="saveJob(job)" block color="success darken-2">
-                <v-icon left>{{ mdiStarOutline }}</v-icon>Save
+              <v-btn
+                :loading="isLoading"
+                @click="saveJob(job)"
+                block
+                color="success darken-2"
+              >
+                <v-icon left>{{ mdiStarOutline }}</v-icon
+                >Save
               </v-btn>
             </v-col>
             <v-col v-else>
-              <v-btn :loading="isLoading" @click="unSaveJob(job)" block color="success darken-2">
-                <v-icon left>{{ mdiStar }}</v-icon>Saved
+              <v-btn
+                :loading="isLoading"
+                @click="unSaveJob(job)"
+                block
+                color="success darken-2"
+              >
+                <v-icon left>{{ mdiStar }}</v-icon
+                >Saved
               </v-btn>
             </v-col>
             <v-col>
               <v-btn block color="grey darken-2 white--text">
-                <v-icon left>{{ mdiShareVariantOutline }}</v-icon>Share
+                <v-icon left>{{ mdiShareVariantOutline }}</v-icon
+                >Share
               </v-btn>
             </v-col>
           </v-row>
