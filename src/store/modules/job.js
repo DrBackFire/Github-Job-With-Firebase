@@ -1,4 +1,5 @@
 import api from '@/services/api.js'
+// import { savedJobsCollection } from '@/services/firebase'
 
 export const namespaced = true
 
@@ -26,29 +27,17 @@ export const mutations = {
 }
 
 export const actions = {
-  getOne({ commit, getters, dispatch }, id) {
+  async getOne({ commit, getters, rootState }, id) {
     const job = getters.getById(id)
+    const savedJobs = rootState.user.savedJobs.find(job => job.id === id)
 
     if (job) {
       commit('SET_ONE', job)
       return job
-    } else {
-      return api
-        .getJob(id)
-        .then(({ data }) => {
-          dispatch('geoLocation/get', data, { root: true })
-          commit('SET_ONE', data)
-          return data
-        })
-        .catch(err => {
-          const notification = {
-            type: 'error',
-            massage: `There was a problem getting job: ${err.massage}`
-          }
-
-          dispatch('notification/add', notification, { root: true })
-        })
     }
+
+    commit('SET_ONE', savedJobs)
+    return savedJobs
   },
 
   async get({ commit, dispatch }, { location, jobTitle }) {

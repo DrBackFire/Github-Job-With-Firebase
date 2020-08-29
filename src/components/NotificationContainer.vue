@@ -26,9 +26,8 @@ export default {
 <style scoped>
 .notification__bar {
   max-width: 500px;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  right: 10px;
+  top: 0;
   position: absolute;
   margin: auto;
 }

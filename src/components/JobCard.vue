@@ -9,10 +9,18 @@
       ></v-img>
       <v-card-title
         class="flex-grow-1 flex-shrink-1 justify-center my-2 text-lg-h5 font-weight-bold text-center"
-      >{{ truncate(job.title, 40) }}</v-card-title>
+        >{{ truncate(job.title, 40) }}</v-card-title
+      >
       <div class="subtitle-1 flex-shrink-1 mr-3">
         <v-row class="my-3 pl-3 justify-center">
-          <v-rating :value="4.5" color="amber" dense half-increments readonly size="14px"></v-rating>
+          <v-rating
+            :value="4.5"
+            color="amber"
+            dense
+            half-increments
+            readonly
+            size="14px"
+          ></v-rating>
 
           <span class="grey--text">4.5 (413)</span>
         </v-row>
@@ -41,7 +49,9 @@
 
     <v-divider class="mx-4"></v-divider>
     <v-card-title>Job synopsis</v-card-title>
-    <p class="mx-2 text-left pl-2 mt-0">{{ stripTags(truncate(job.description, 300)) }}</p>
+    <p class="mx-2 text-left pl-2 mt-0">
+      {{ stripTags(truncate(job.description, 300)) }}
+    </p>
 
     <v-card-actions>
       <v-btn
@@ -49,11 +59,36 @@
         color="blue darken-4"
         text
         class="font-weight-bold"
-      >More Details</v-btn>
+        >More Details</v-btn
+      >
       <v-spacer></v-spacer>
-      <v-btn color="success darken-2" text class="font-weight-bold">
-        <v-icon left>{{ mdiStarOutline }}</v-icon>Save
-      </v-btn>
+      <!-- Toggle Save -->
+      <template v-if="!savedJob(job.id)">
+        <v-btn
+          :loading="isLoading"
+          @click="saveJob(job)"
+          color="success darken-2"
+          text
+          class="font-weight-bold"
+        >
+          <v-icon left>{{ mdiStarOutline }}</v-icon
+          >Save
+        </v-btn>
+      </template>
+
+      <!-- Saved -->
+      <template v-else>
+        <v-btn
+          :loading="isLoading"
+          @click="unSaveJob(job)"
+          color="success darken-2"
+          text
+          class="font-weight-bold"
+        >
+          <v-icon left>{{ mdiStar }}</v-icon
+          >Saved
+        </v-btn>
+      </template>
     </v-card-actions>
   </v-card>
 </template>

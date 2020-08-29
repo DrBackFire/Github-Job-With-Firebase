@@ -6,8 +6,12 @@ export const loginRegisterMixin = {
       mdiEmail,
       mdiLockQuestion,
       showPassword: false,
-      email: '',
-      password: '',
+      user: {
+        email: '',
+        password: '',
+        name: '',
+        title: ''
+      },
       rules: [
         value => !!value || 'Required.',
         value => (value || '').length <= 20 || 'Max 20 characters',

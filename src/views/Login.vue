@@ -3,18 +3,20 @@
     <v-row align="center" justify="center" class="my-10">
       <v-col md="9">
         <v-card class="mx-auto my-8 shadow__ pa-5 radius" color="#FAFAFA">
-          <v-card-title class="justify-center my-2 text-md-h4 font-weight-bold">Login</v-card-title>
+          <v-card-title class="justify-center my-2 text-md-h4 font-weight-bold"
+            >Login</v-card-title
+          >
 
           <v-divider class="mx-4 my-5"></v-divider>
 
           <v-card-text class="my-7">
-            <v-form @submit.prevent="login">
+            <v-form @submit.prevent="userLogin">
               <v-row>
                 <v-col cols="12">
                   <v-text-field
                     hide-details="auto"
                     label="Email"
-                    v-model="email"
+                    v-model="user.email"
                     :prepend-icon="mdiEmail"
                     autofocus
                     :rules="rules"
@@ -25,7 +27,7 @@
                     hide-details="auto"
                     label="Password"
                     :type="showPassword ? 'text' : 'password'"
-                    v-model="password"
+                    v-model="user.password"
                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     :prepend-icon="mdiLockQuestion"
                     @click:append="showPassword = !showPassword"
@@ -36,7 +38,9 @@
 
               <v-row justify="center" class="mt-6">
                 <v-col cols="12">
-                  <v-btn type="submit" color="blue darken-4 white--text" block>Submit</v-btn>
+                  <v-btn type="submit" color="blue darken-4 white--text" block
+                    >Submit</v-btn
+                  >
                 </v-col>
               </v-row>
             </v-form>
@@ -49,12 +53,20 @@
 
 <script>
 import { loginRegisterMixin } from '@/mixins/loginRegisterMixin'
+import { mapActions } from 'vuex'
 
 export default {
   mixins: [loginRegisterMixin],
 
   methods: {
-    login() {}
+    ...mapActions('user', ['login']),
+
+    userLogin() {
+      this.login({
+        email: this.user.email,
+        password: this.user.password
+      })
+    }
   }
 }
 </script>

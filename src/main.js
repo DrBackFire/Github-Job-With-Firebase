@@ -12,14 +12,19 @@ Vue.use(firestorePlugin)
 Vue.config.productionTip = false
 
 // This ensures Firebase initializes before loading the app when a user refreshes a page.
-let app
-firebaseAuth.onAuthStateChanged(() => {
-  if (!app) {
-    app = new Vue({
-      router,
-      store,
-      vuetify,
-      render: h => h(App)
-    }).$mount('#app')
-  }
+firebaseAuth.onAuthStateChanged(async user => {
+  if (user) await store.dispatch('user/fetchUserProfile', user)
+
+  new Vue({
+    router,
+    store,
+    vuetify,
+    render: h => h(App)
+  }).$mount('#app')
+
+  /* when a user reloads the page, all of the local state disappears
+    using Firebase's built-in method onAuthStateChanged. This watches 
+    the authentication state of user on page reload, sets the 
+    user state, and fetches the user's profile.
+  */
 })

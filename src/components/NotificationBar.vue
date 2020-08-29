@@ -18,12 +18,12 @@ export default {
       timeout: null
     }
   },
-  // mounted() {
-  //   this.timeout = setTimeout(() => this.remove(this.notification), 4000)
-  // },
-  // beforeDestroy() {
-  //   clearTimeout(this.timeout)
-  // },
+  mounted() {
+    this.timeout = setTimeout(() => this.remove(this.notification), 4000)
+  },
+  beforeDestroy() {
+    clearTimeout(this.timeout)
+  },
   props: {
     notification: {
       type: Object,

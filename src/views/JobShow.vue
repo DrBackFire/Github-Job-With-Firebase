@@ -25,10 +25,27 @@
           </v-row>
           <v-divider></v-divider>
           <v-row justify="center" class="pa-5">
-            <v-col>
-              <v-btn block color="success darken-2">
+            <!-- Toggle Save -->
+            <v-col v-if="!savedJob(job.id)">
+              <v-btn
+                :loading="isLoading"
+                @click="saveJob(job)"
+                block
+                color="success darken-2"
+              >
                 <v-icon left>{{ mdiStarOutline }}</v-icon
                 >Save
+              </v-btn>
+            </v-col>
+            <v-col v-else>
+              <v-btn
+                :loading="isLoading"
+                @click="unSaveJob(job)"
+                block
+                color="success darken-2"
+              >
+                <v-icon left>{{ mdiStar }}</v-icon
+                >Saved
               </v-btn>
             </v-col>
             <v-col>
@@ -38,7 +55,7 @@
               </v-btn>
             </v-col>
           </v-row>
-          <v-card-text class=" black--text text-center">
+          <v-card-text class="black--text text-center">
             <h3>
               Go to your
               <a href="#" class="font-weight-bold">Saved jobs</a>
