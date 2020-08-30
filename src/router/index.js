@@ -4,7 +4,7 @@ import JobList from '@/views/JobList.vue'
 import JobShow from '@/views/JobShow.vue'
 import Register from '@/views/Register.vue'
 import Dashboard from '@/views/Dashboard.vue'
-import Login from '@/views/Login.vue'
+import SignIn from '@/views/SignIn.vue'
 import Search from '@/views/Search.vue'
 import NProgress from 'nprogress'
 import store from '@/store'
@@ -37,15 +37,22 @@ const routes = [
   },
 
   {
-    path: '/jobs/:id',
+    path: '/jobs',
     name: 'job-Show',
     component: JobShow,
     props: true,
-    beforeEnter(to, from, next) {
-      store.dispatch('job/getOne', to.params.id).then(job => {
-        to.params.job = job // Setting the props to what the api returned, to display data
-        next()
-      })
+    async beforeEnter(to, from, next) {
+      const job = {
+        id: to.query.id,
+        location: to.query.location,
+        jobTitle: to.query.jobTitle
+      }
+      const response = await store.dispatch('job/getOne', job)
+
+      // Setting the props to what the api returned, to display data
+      to.params.job = response
+
+      next()
     }
   },
 
@@ -60,9 +67,9 @@ const routes = [
   },
 
   {
-    path: '/login',
-    name: 'Login',
-    component: Login,
+    path: '/signin',
+    name: 'SignIn',
+    component: SignIn,
     meta: {
       // protecting route
       requireGust: true
@@ -97,7 +104,7 @@ router.beforeEach((to, from, next) => {
   const requireGust = to.matched.some(route => route.meta.requireGust)
 
   if (requiresAuth && !firebaseAuth.currentUser) {
-    next('/login')
+    next('/signin')
   } else if (requireGust && firebaseAuth.currentUser) {
     next('/dashboard')
   } else {

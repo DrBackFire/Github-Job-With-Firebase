@@ -38,15 +38,16 @@ export const jobMixin = {
   methods: {
     ...mapActions('user', ['savedJobs', 'removeSavedJob']),
 
-    saveJob(job) {
+    async saveJob(job) {
       this.isLoading = true
-      this.savedJobs(job).then(() => (this.isLoading = false))
+      await this.savedJobs(job)
+      this.isLoading = false
     },
 
-    unSaveJob(job) {
+    async unSaveJob(job) {
       this.isLoading = true
-
-      this.removeSavedJob(job).then(() => (this.isLoading = false))
+      await this.removeSavedJob(job)
+      this.isLoading = false
     }
   },
 

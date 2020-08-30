@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="px-8">
     <v-row justify="center">
-      <v-col sm="12" md="12" lg="8" class="px-5">
+      <v-col sm="12" lg="8" class="px-5">
         <h1 class="mt-3">{{ job.title }}</h1>
 
         <v-list-item-subtitle class="grey--text mb-3">{{
@@ -16,7 +16,7 @@
       </v-col>
 
       <!-- Application card-->
-      <v-col>
+      <v-col md="11" lg="4">
         <v-card class="mx-auto mt-5 shadow__">
           <v-row justify="center" align-content="center" class="pa-7">
             <v-btn color="blue darken-4 white--text" block large

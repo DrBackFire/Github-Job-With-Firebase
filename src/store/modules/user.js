@@ -1,5 +1,5 @@
-import router from '../../router'
-import * as fb from '../../services/firebase'
+import router from '@/router'
+import * as fb from '@/services/firebase'
 
 export const namespaced = true
 
@@ -56,7 +56,6 @@ export const actions = {
       dispatch('fetchUserProfile', user)
 
       // change route to dashboard
-
       router.push('/dashboard')
     } catch (err) {
       // showing err in ui
@@ -111,7 +110,7 @@ export const actions = {
       commit('SET_USER_PROFILE', userProfile.data())
 
       // change route to dashboard
-      if (router.currentRoute.path === '/login') {
+      if (router.currentRoute.path === '/signin') {
         router.push('/dashboard')
       }
     } catch (err) {

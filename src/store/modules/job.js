@@ -27,29 +27,29 @@ export const mutations = {
 }
 
 export const actions = {
-  async getOne({ commit, getters, rootState }, id) {
-    const job = getters.getById(id)
-    const savedJobs = rootState.user.savedJobs.find(job => job.id === id)
+  async getOne({ commit, getters, dispatch }, { id, location, jobTitle }) {
+    let job = getters.getById(id)
 
     if (job) {
       commit('SET_ONE', job)
       return job
     }
 
-    commit('SET_ONE', savedJobs)
-    return savedJobs
+    await dispatch('get', { location, jobTitle })
+
+    job = getters.getById(id)
+
+    commit('SET_ONE', job)
+    return job
   },
 
   async get({ commit, dispatch }, { location, jobTitle }) {
     try {
-      const response = await api
-        .getJobs(location, jobTitle)
-        .then(({ data }) => {
-          commit('SET_ALL', data)
-          // console.table(data)
-          return data
-        })
-      return response
+      const { data } = await api.getJobs(location, jobTitle)
+
+      commit('SET_ALL', data)
+
+      return data
     } catch (err) {
       dispatch(
         'notification/add',

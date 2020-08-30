@@ -72,11 +72,23 @@ body {
   background: #eeeeee !important;
 }
 
-/* .wrapper {
-  margin: 20px auto;
-  padding: 20px 0px;
-  max-width: 1300px;
-} */
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgb(171, 175, 182);
+}
+.separator::before {
+  margin-right: 1em;
+}
+.separator::after {
+  margin-left: 1em;
+}
 
 a {
   text-decoration: none;

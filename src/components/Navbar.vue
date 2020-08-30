@@ -3,7 +3,7 @@
   <div>
     <v-app-bar color="grey darken-4" dark app>
       <router-link to="/">
-        <v-toolbar-title class="white--text pl-3">GITHUB JOBS</v-toolbar-title>
+        <v-toolbar-title class="white--text pl-3">GITJOBS</v-toolbar-title>
       </router-link>
 
       <v-spacer />
@@ -19,14 +19,9 @@
           >About
         </v-btn>
 
-        <v-btn v-if="!isLoggedIn" :to="{ name: 'Register' }" color="white" text>
+        <v-btn v-if="!isLoggedIn" :to="{ name: 'SignIn' }" color="white" text>
           <v-icon left>{{ mdiAccount }}</v-icon
-          >Register
-        </v-btn>
-
-        <v-btn v-if="!isLoggedIn" :to="{ name: 'Login' }" color="white" text>
-          <v-icon left>{{ mdiAccount }}</v-icon
-          >Login
+          >Sign In
         </v-btn>
 
         <v-btn v-else @click="logout()" color="white" text>

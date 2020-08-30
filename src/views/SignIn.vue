@@ -2,17 +2,17 @@
   <v-container fluid>
     <v-row align="center" justify="center" class="my-5">
       <v-col lg="6" md="7" sm="12">
-        <RegisterCard />
+        <SignInCard />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import RegisterCard from '@/components/RegisterCard.vue'
+import SignInCard from '@/components/SignInCard.vue'
 export default {
   components: {
-    RegisterCard
+    SignInCard
   }
 }
 </script>

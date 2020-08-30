@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto job__card radius my-8 pa-3" color="#FAFAFA">
+  <v-card class="mx-auto job__card radius mb-8 pa-3" color="#FAFAFA">
     <div class="d-md-flex justify-space-between align-center">
       <v-img
         :src="job.company_logo"
@@ -55,7 +55,10 @@
 
     <v-card-actions>
       <v-btn
-        :to="{ name: 'job-Show', params: { id: job.id } }"
+        :to="{
+          name: 'job-Show',
+          query: { location: job.location, jobTitle: job.title, id: job.id }
+        }"
         color="blue darken-4"
         text
         class="font-weight-bold"
