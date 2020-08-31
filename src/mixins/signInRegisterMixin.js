@@ -6,6 +6,7 @@ export const signInRegisterMixin = {
       mdiEmail,
       mdiAccount,
       mdiLockQuestion,
+      isLoading: false,
       showPassword: false,
       user: {
         email: '',

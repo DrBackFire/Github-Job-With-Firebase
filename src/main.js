@@ -1,14 +1,16 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import vuetify from './plugins/vuetify'
+import App from '@/App.vue'
+import router from '@/router'
+import store from '@/store'
+import vuetify from '@/plugins/vuetify'
 import 'nprogress/nprogress.css'
 import { firestorePlugin } from 'vuefire'
 import { firebaseAuth } from './services/firebase'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
+import titleMixin from '@/mixins/titleMixin'
 
+Vue.mixin(titleMixin)
 const requireComponent = require.context(
   // The relative path of the components folder
   './components',

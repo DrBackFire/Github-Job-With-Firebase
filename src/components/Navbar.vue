@@ -2,9 +2,10 @@
 <template>
   <div>
     <v-app-bar color="grey darken-4" dark app>
-      <router-link to="/">
-        <v-toolbar-title class="white--text pl-3">GITJOBS</v-toolbar-title>
-      </router-link>
+      <v-btn color="transparent" text to="/">
+        <v-icon class="white--text" left>{{ mdiMagnify }}</v-icon>
+        <v-toolbar-title class="white--text">GITJOBS</v-toolbar-title>
+      </v-btn>
 
       <v-spacer />
 
@@ -25,8 +26,8 @@
         </v-btn>
 
         <v-btn v-else @click="logout()" color="white" text>
-          <v-icon left>{{ mdiLogout }}</v-icon>
-          Logout
+          <v-icon left>{{ mdiLogout }}</v-icon
+          >Logout
         </v-btn>
       </v-toolbar-items>
 
@@ -55,9 +56,7 @@
               <v-icon icon left>{{ mdiDesktopMacDashboard }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>
-                Dashboard
-              </v-list-item-title>
+              <v-list-item-title>Dashboard</v-list-item-title>
             </v-list-item-content>
           </router-link>
         </v-list-item>
@@ -68,9 +67,7 @@
               <v-icon left>{{ mdiAccount }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>
-                Sign In
-              </v-list-item-title>
+              <v-list-item-title>Sign In</v-list-item-title>
             </v-list-item-content>
           </router-link>
         </v-list-item>
@@ -80,9 +77,7 @@
             <v-icon left>{{ mdiLogout }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>
-              Logout
-            </v-list-item-title>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -92,9 +87,7 @@
               <v-icon></v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>
-                About
-              </v-list-item-title>
+              <v-list-item-title>About</v-list-item-title>
             </v-list-item-content>
           </router-link>
         </v-list-item>
@@ -108,7 +101,8 @@ import {
   mdiAccount,
   mdiInformationVariant,
   mdiDesktopMacDashboard,
-  mdiLogout
+  mdiLogout,
+  mdiMagnify
 } from '@mdi/js'
 import { mapState, mapActions } from 'vuex'
 export default {
@@ -117,6 +111,7 @@ export default {
     mdiAccount,
     mdiInformationVariant,
     mdiLogout,
+    mdiMagnify,
     mdiDesktopMacDashboard
   }),
 

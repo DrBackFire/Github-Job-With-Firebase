@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row justify="center" align="center" class="my-10">
-      <v-col md="9">
+      <v-col sm="12" md="8" lg="6">
         <v-card class="mx-auto my-8 shadow__ pa-5 radius" color="#FAFAFA">
           <v-card-title class="justify-center my-2 text-md-h4 font-weight-bold"
             >Job Search</v-card-title
@@ -68,6 +68,10 @@ import { mdiDevices } from '@mdi/js'
 import { mapActions } from 'vuex'
 
 export default {
+  title() {
+    return `Search page — GitHub Jobs`
+  },
+
   data() {
     return {
       rules: [v => !!v || 'This field is required'],

@@ -11,6 +11,9 @@
 <script>
 import RegisterCard from '@/components/RegisterCard.vue'
 export default {
+  title() {
+    return `Register page — GitHub Jobs`
+  },
   components: {
     RegisterCard
   }

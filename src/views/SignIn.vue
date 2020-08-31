@@ -11,6 +11,9 @@
 <script>
 import SignInCard from '@/components/SignInCard.vue'
 export default {
+  title() {
+    return `Sigin — GitHub Jobs`
+  },
   components: {
     SignInCard
   }

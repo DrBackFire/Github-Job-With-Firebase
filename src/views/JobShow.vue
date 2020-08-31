@@ -4,9 +4,9 @@
       <v-col sm="12" lg="8" class="px-5">
         <h1 class="mt-3">{{ job.title }}</h1>
 
-        <v-list-item-subtitle class="grey--text mb-3">{{
-          job.company
-        }}</v-list-item-subtitle>
+        <v-list-item-subtitle class="grey--text mb-3">
+          {{ job.company }}
+        </v-list-item-subtitle>
 
         <div v-html="marked(job.description)" />
         <v-divider class="mx-4 my-5"></v-divider>
@@ -89,6 +89,9 @@
 import { jobMixin } from '@/mixins/jobMixin'
 
 export default {
+  title() {
+    return this.job.title
+  },
   mixins: [jobMixin]
 }
 </script>

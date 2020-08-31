@@ -35,7 +35,12 @@
 
         <v-row justify="center" class="mt-4">
           <v-col cols="12">
-            <v-btn type="submit" color="blue darken-4 white--text" block rounded
+            <v-btn
+              :loading="isLoading"
+              type="submit"
+              color="blue darken-4 white--text"
+              block
+              rounded
               >Submit</v-btn
             >
           </v-col>
@@ -47,9 +52,9 @@
       <BaseSignInOptions />
 
       <v-row justify="center" align="center" class="mt-3">
-        <v-btn text :to="{ name: 'Register' }" block>
-          New to GitJobs? Create an account
-        </v-btn>
+        <v-btn text :to="{ name: 'Register' }" block
+          >New to GitJobs? Create an account</v-btn
+        >
       </v-row>
     </v-card-text>
   </v-card>
@@ -65,11 +70,13 @@ export default {
   methods: {
     ...mapActions('user', ['login']),
 
-    userLogin() {
-      this.login({
+    async userLogin() {
+      this.isLoading = true
+      await this.login({
         email: this.user.email,
         password: this.user.password
       })
+      this.thisisLoading = false
     }
   }
 }

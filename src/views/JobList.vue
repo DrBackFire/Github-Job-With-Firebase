@@ -39,6 +39,10 @@ import store from '@/store'
 export default {
   name: 'JobList',
 
+  title() {
+    return `JobList — GitHub Jobs`
+  },
+
   async beforeRouteEnter(to, from, next) {
     const jobs = await store.dispatch('job/get', {
       location: to.query.location,
