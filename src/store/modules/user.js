@@ -4,8 +4,9 @@ import * as fb from '@/services/firebase'
 export const namespaced = true
 
 export const state = {
-  userProfile: [],
+  signInPopModal: false,
   isLoggedIn: false,
+  userProfile: {},
   savedJobs: [],
   user: {}
 }
@@ -24,6 +25,7 @@ export const mutations = {
   SET_USER_PROFILE(state, val) {
     state.userProfile = val
     state.isLoggedIn = true
+    state.signInPopModal = false
   },
 
   REMOVE_USER() {
@@ -32,6 +34,14 @@ export const mutations = {
 
   SET_SAVED_JOBS_FROM_DB(state, val) {
     state.savedJobs = val
+  },
+
+  CLOSE_MODAL(state) {
+    state.signInPopModal = false
+  },
+
+  OPEN_MODAL(state) {
+    state.signInPopModal = true
   }
 }
 
@@ -96,6 +106,69 @@ export const actions = {
     }
   },
 
+  // Signing in with Google auth
+  async signInWithGoogle({ dispatch, commit }) {
+    try {
+      // sign in with a pop-up window, call signInWithPopup
+      const { user } = await fb.firebaseAuth.signInWithPopup(fb.GoogleAuth)
+
+      await fb.usersCollection.doc(user.uid).set({
+        displayName: user.displayName
+      })
+
+      // setting user to state
+      commit('SET_USER', user)
+
+      // fetch user profile & set in state
+      dispatch('fetchUserProfile', user)
+    } catch (err) {
+      // showing err in ui
+      console.log(err)
+    }
+  },
+
+  // Signing in with GitHub auth
+  async signInWithGitHub({ dispatch, commit }) {
+    try {
+      // sign in with a pop-up window, call signInWithPopup
+      const { user } = await fb.firebaseAuth.signInWithPopup(fb.GitHubAuth)
+
+      await fb.usersCollection.doc(user.uid).set({
+        displayName: user.displayName
+      })
+
+      // setting user to state
+      commit('SET_USER', user)
+
+      // fetch user profile & set in state
+      dispatch('fetchUserProfile', user)
+    } catch (err) {
+      // showing err in ui
+      console.log(err)
+    }
+  },
+
+  // Signing in with Twitter auth
+  async signInWithTwitter({ dispatch, commit }) {
+    try {
+      // sign in with a pop-up window, call signInWithPopup
+      const { user } = await fb.firebaseAuth.signInWithPopup(fb.TwitterAuth)
+
+      await fb.usersCollection.doc(user.uid).set({
+        displayName: user.displayName
+      })
+
+      // setting user to state
+      commit('SET_USER', user)
+
+      // fetch user profile & set in state
+      dispatch('fetchUserProfile', user)
+    } catch (err) {
+      // showing err in ui
+      console.log(err)
+    }
+  },
+
   async fetchUserProfile({ commit, dispatch }, user) {
     try {
       // setting user to state
@@ -106,11 +179,19 @@ export const actions = {
       // fetch user profile
       const userProfile = await fb.usersCollection.doc(user.uid).get()
 
-      // set user profile in state
-      commit('SET_USER_PROFILE', userProfile.data())
+      // Check if use profile exists, if not then get data from use obj
+      if (!userProfile.exists) {
+        commit('SET_USER_PROFILE', { displayName: user.displayName })
+      } else {
+        // set user profile in state
+        commit('SET_USER_PROFILE', userProfile.data())
+      }
 
       // change route to dashboard
-      if (router.currentRoute.path === '/signin') {
+      if (
+        router.currentRoute.path === '/signin' ||
+        router.currentRoute.path === '/404'
+      ) {
         router.push('/dashboard')
       }
     } catch (err) {
@@ -204,5 +285,13 @@ export const actions = {
     // clear userProfile and redirect to /login
     commit('REMOVE_USER')
     router.push('/')
+  },
+
+  closeModal({ commit }) {
+    commit('CLOSE_MODAL')
+  },
+
+  openModal({ commit }) {
+    commit('OPEN_MODAL')
   }
 }

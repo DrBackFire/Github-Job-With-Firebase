@@ -2,7 +2,7 @@
   <v-row justify="center" align="center">
     <!-- Sign in with Google -->
     <v-col cols="12">
-      <v-btn block outlined color="red" rounded>
+      <v-btn @click="signInWithGoogle" block outlined color="red" rounded>
         <v-icon left>
           {{ mdiGoogle }}
         </v-icon>
@@ -10,38 +10,45 @@
       </v-btn>
     </v-col>
 
-    <!-- Sign in with Apple -->
+    <!-- Sign in with GitHub -->
     <v-col cols="12">
-      <v-btn block outlined rounded>
+      <v-btn @click="signInWithGitHub" block outlined rounded>
         <v-icon left>
-          {{ mdiApple }}
+          {{ mdiGithub }}
         </v-icon>
-        Sign in with Apple
+        Sign in with GitHub
       </v-btn>
     </v-col>
 
-    <!-- Sign in with Facebook -->
+    <!-- Sign in with Twitter -->
     <v-col cols="12">
-      <v-btn block outlined color="primary" rounded>
+      <v-btn @click="signInWithTwitter" block outlined color="primary" rounded>
         <v-icon left>
-          {{ mdiFacebook }}
+          {{ mdiTwitter }}
         </v-icon>
-        Sign in with Facebook
+        Sign in with Twitter
       </v-btn>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mdiGoogle, mdiApple, mdiFacebook } from '@mdi/js'
+import { mdiGoogle, mdiTwitter, mdiGithub } from '@mdi/js'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
       mdiGoogle,
-      mdiApple,
-      mdiFacebook
+      mdiTwitter,
+      mdiGithub
     }
-  }
+  },
+
+  methods: mapActions('user', [
+    'signInWithGoogle',
+    'signInWithGitHub',
+    'signInWithTwitter'
+  ])
 }
 </script>
 

@@ -19,7 +19,7 @@
       <v-col md="11" lg="4">
         <v-card class="mx-auto mt-5 shadow__">
           <v-row justify="center" align-content="center" class="pa-7">
-            <v-btn color="blue darken-4 white--text" block large
+            <v-btn @click="apply" color="blue darken-4 white--text" block large
               >Apply Now via GitHub Jobs</v-btn
             >
           </v-row>
@@ -49,7 +49,7 @@
               </v-btn>
             </v-col>
             <v-col>
-              <v-btn block color="grey darken-2 white--text">
+              <v-btn @click="share" block color="grey darken-2 white--text">
                 <v-icon left>{{ mdiShareVariantOutline }}</v-icon
                 >Share
               </v-btn>
@@ -58,7 +58,7 @@
           <v-card-text class="black--text text-center">
             <h3>
               Go to your
-              <a href="#" class="font-weight-bold">Saved jobs</a>
+              <a @click="redirect" class="font-weight-bold">Saved jobs</a>
               to add notes
             </h3>
           </v-card-text>

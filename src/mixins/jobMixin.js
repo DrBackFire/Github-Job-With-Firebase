@@ -1,4 +1,4 @@
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import { truncate, stripTags } from '@/utili'
 import { format } from 'date-fns'
 import marked from 'marked'
@@ -36,20 +36,48 @@ export const jobMixin = {
   },
 
   methods: {
-    ...mapActions('user', ['savedJobs', 'removeSavedJob']),
+    ...mapActions('user', ['savedJobs', 'removeSavedJob', 'openModal']),
 
     async saveJob(job) {
-      this.isLoading = true
-      await this.savedJobs(job)
-      this.isLoading = false
+      if (this.loggedIn) {
+        this.isLoading = true
+        await this.savedJobs(job)
+        this.isLoading = false
+      } else {
+        this.openModal()
+      }
     },
 
     async unSaveJob(job) {
       this.isLoading = true
       await this.removeSavedJob(job)
       this.isLoading = false
+    },
+
+    apply() {
+      if (this.loggedIn) {
+        return alert('This feature will be added soon')
+      }
+
+      this.openModal()
+    },
+
+    share() {
+      return alert('This feature will be added soon')
+    },
+
+    redirect() {
+      if (this.loggedIn) {
+        return alert('This feature will be added soon')
+      }
+
+      this.openModal()
     }
   },
-
-  computed: mapGetters('user', ['savedJob'])
+  computed: {
+    ...mapGetters('user', ['savedJob']),
+    ...mapState({
+      loggedIn: state => state.user.isLoggedIn
+    })
+  }
 }

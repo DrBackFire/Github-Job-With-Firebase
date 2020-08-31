@@ -23,8 +23,16 @@ const usersCollection = db.collection('users')
 const savedJobsCollection = db.collection('savedJobsCollection')
 const appliedJobsCollection = db.collection('appliedJobsCollection')
 
+// Auth
+const GoogleAuth = new firebase.auth.GoogleAuthProvider()
+const GitHubAuth = new firebase.auth.GithubAuthProvider()
+const TwitterAuth = new firebase.auth.TwitterAuthProvider()
+
 // export utils/refs
 export {
+  GitHubAuth,
+  GoogleAuth,
+  TwitterAuth,
   firebaseAuth,
   jobsCollection,
   usersCollection,

@@ -1,5 +1,5 @@
 import api from '@/services/api.js'
-// import { savedJobsCollection } from '@/services/firebase'
+import router from '@/router'
 
 export const namespaced = true
 
@@ -43,7 +43,7 @@ export const actions = {
     return job
   },
 
-  async get({ commit, dispatch }, { location, jobTitle }) {
+  async get({ commit }, { location, jobTitle }) {
     try {
       const { data } = await api.getJobs(location, jobTitle)
 
@@ -51,14 +51,14 @@ export const actions = {
 
       return data
     } catch (err) {
-      dispatch(
-        'notification/add',
-        {
-          type: 'error',
-          massage: `There was a problem getting jobs: ${err.massage}`
-        },
-        { root: true }
-      )
+      if (err.response && err.response.status == 404) {
+        router.next({
+          name: '404',
+          params: { resource: 'event' }
+        })
+      } else {
+        router.next({ name: 'network-issue' })
+      }
     }
   }
 }

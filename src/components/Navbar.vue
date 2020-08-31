@@ -25,14 +25,14 @@
         </v-btn>
 
         <v-btn v-else @click="logout()" color="white" text>
-          <v-icon left>{{ mdiAccount }}</v-icon
-          >Logout
+          <v-icon left>{{ mdiLogout }}</v-icon>
+          Logout
         </v-btn>
       </v-toolbar-items>
 
       <span class="hidden-sm-and-up">
         <v-app-bar-nav-icon
-          v-model="drawer"
+          @click="drawer = !drawer"
           app
           temporary
           right
@@ -49,44 +49,54 @@
       class="hidden-xs-and-down"
     >
       <v-list dense>
-        <router-link :to="{ name: 'About' }">
-          <v-list-item link>
+        <v-list-item v-if="isLoggedIn" link>
+          <router-link class="black--text" :to="{ name: 'Dashboard' }">
             <v-list-item-action>
-              <v-icon></v-icon>
+              <v-icon icon left>{{ mdiDesktopMacDashboard }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>About</v-list-item-title>
+              <v-list-item-title>
+                Dashboard
+              </v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
-        </router-link>
+          </router-link>
+        </v-list-item>
 
-        <router-link :to="{ name: 'Register' }">
-          <v-list-item link>
+        <v-list-item v-if="!isLoggedIn" link>
+          <router-link class="black--text" :to="{ name: 'SignIn' }">
             <v-list-item-action>
-              <v-icon></v-icon>
+              <v-icon left>{{ mdiAccount }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Register</v-list-item-title>
+              <v-list-item-title>
+                Sign In
+              </v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
-        </router-link>
+          </router-link>
+        </v-list-item>
 
-        <v-list-item link>
+        <v-list-item v-else @click="logout()" link>
           <v-list-item-action>
-            <v-icon>{{ mdiAccount }}</v-icon>
+            <v-icon left>{{ mdiLogout }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>User</v-list-item-title>
+            <v-list-item-title>
+              Logout
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
         <v-list-item link>
-          <v-list-item-action>
-            <v-icon>{{ mdiCog }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
+          <router-link class="black--text" :to="{ name: 'About' }">
+            <v-list-item-action>
+              <v-icon></v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                About
+              </v-list-item-title>
+            </v-list-item-content>
+          </router-link>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -96,19 +106,17 @@
 <script>
 import {
   mdiAccount,
-  mdiCog,
   mdiInformationVariant,
-  mdiMagnify,
-  mdiDesktopMacDashboard
+  mdiDesktopMacDashboard,
+  mdiLogout
 } from '@mdi/js'
 import { mapState, mapActions } from 'vuex'
 export default {
   data: () => ({
     drawer: null,
     mdiAccount,
-    mdiCog,
     mdiInformationVariant,
-    mdiMagnify,
+    mdiLogout,
     mdiDesktopMacDashboard
   }),
 

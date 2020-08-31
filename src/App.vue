@@ -3,6 +3,7 @@
     <Navbar />
     <v-main>
       <NotificationContainer />
+      <PopUpModal />
 
       <transition name="slide-fade" mode="out-in">
         <router-view :key="$route.fullPath" />
@@ -31,11 +32,13 @@
 <script>
 import { mdiArrowUpBold } from '@mdi/js'
 import Navbar from '@/components/Navbar.vue'
+import PopUpModal from '@/components/PopUpModal.vue'
 import NotificationContainer from '@/components/NotificationContainer.vue'
 
 export default {
   components: {
     Navbar,
+    PopUpModal,
     NotificationContainer
   },
 

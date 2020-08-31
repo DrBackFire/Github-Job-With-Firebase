@@ -6,6 +6,8 @@ import Register from '@/views/Register.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import SignIn from '@/views/SignIn.vue'
 import Search from '@/views/Search.vue'
+import NotFound from '@/views/NotFound.vue'
+import NetworkIssue from '@/views/NetworkIssue.vue'
 import NProgress from 'nprogress'
 import store from '@/store'
 import { firebaseAuth } from '@/services/firebase'
@@ -84,14 +86,28 @@ const routes = [
       // protecting route
       requiresAuth: true
     }
-  }
+  },
+
+  {
+    path: '/404',
+    name: '404',
+    component: NotFound,
+    props: true
+  },
+
+  {
+    path: '/network-issue',
+    name: 'network-issue',
+    component: NetworkIssue
+  },
+
+  { path: '*', redirect: { name: '404', params: { resource: 'page' } } }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-  // : [...{ path: '*', component: NotFoundComponent }]
 })
 
 router.beforeEach((to, from, next) => {
