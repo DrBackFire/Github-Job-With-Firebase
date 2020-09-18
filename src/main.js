@@ -49,8 +49,8 @@ Vue.use(firestorePlugin)
 Vue.config.productionTip = false
 
 // This ensures Firebase initializes before loading the app when a user refreshes a page.
-firebaseAuth.onAuthStateChanged(async user => {
-  if (user) await store.dispatch('user/fetchUserProfile', user)
+firebaseAuth.onAuthStateChanged(user => {
+  if (user) store.dispatch('user/fetchUserProfile', user)
 
   new Vue({
     router,

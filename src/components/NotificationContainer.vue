@@ -1,7 +1,6 @@
 <template>
-  <div class="notification__bar mt-5">
-    <NotificationBar
-      type="error"
+  <div>
+    <NotificationModal
       v-for="notification in notifications"
       :key="notification.id"
       :notification="notification"
@@ -11,11 +10,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import NotificationBar from '@/components/NotificationBar.vue'
+import NotificationModal from '@/components/NotificationModal.vue'
 
 export default {
   components: {
-    NotificationBar
+    NotificationModal
   },
   computed: mapState({
     notifications: state => state.notification.notifications

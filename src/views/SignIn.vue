@@ -12,7 +12,7 @@
 import SignInCard from '@/components/SignInCard.vue'
 export default {
   title() {
-    return `Sigin — GitHub Jobs`
+    return `Sigin`
   },
   components: {
     SignInCard

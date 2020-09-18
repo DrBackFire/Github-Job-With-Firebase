@@ -12,7 +12,7 @@
 <script>
 export default {
   title() {
-    return `404 — GitHub Jobs`
+    return `404`
   },
   props: {
     resource: {

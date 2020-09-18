@@ -69,7 +69,7 @@ import { mapActions } from 'vuex'
 
 export default {
   title() {
-    return `Search page — GitHub Jobs`
+    return `Search`
   },
 
   data() {

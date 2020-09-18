@@ -8,7 +8,7 @@ export const state = {
   isLoggedIn: false,
   userProfile: {},
   savedJobs: [],
-  user: {}
+  user: null
 }
 
 export const getters = {
@@ -56,12 +56,6 @@ export const actions = {
       // setting user to state
       commit('SET_USER', user)
 
-      // create user profile object in userCollections
-      await fb.usersCollection.doc(user.uid).set({
-        name: form.name,
-        title: form.title
-      })
-
       // fetch user profile & set in state
       dispatch('fetchUserProfile', user)
 
@@ -73,7 +67,7 @@ export const actions = {
         'notification/add',
         {
           type: 'error',
-          massage: err
+          massage: err.message
         },
         { root: true }
       )
@@ -99,7 +93,7 @@ export const actions = {
         'notification/add',
         {
           type: 'error',
-          massage: err
+          massage: err.message
         },
         { root: true }
       )
@@ -123,7 +117,14 @@ export const actions = {
       dispatch('fetchUserProfile', user)
     } catch (err) {
       // showing err in ui
-      console.log(err)
+      dispatch(
+        'notification/add',
+        {
+          type: 'error',
+          massage: err.message
+        },
+        { root: true }
+      )
     }
   },
 
@@ -144,7 +145,14 @@ export const actions = {
       dispatch('fetchUserProfile', user)
     } catch (err) {
       // showing err in ui
-      console.log(err)
+      dispatch(
+        'notification/add',
+        {
+          type: 'error',
+          massage: err.message
+        },
+        { root: true }
+      )
     }
   },
 
@@ -165,22 +173,32 @@ export const actions = {
       dispatch('fetchUserProfile', user)
     } catch (err) {
       // showing err in ui
-      console.log(err)
+      dispatch(
+        'notification/add',
+        {
+          type: 'error',
+          massage: err.message
+        },
+        { root: true }
+      )
     }
   },
 
   async fetchUserProfile({ commit, dispatch }, user) {
     try {
-      // setting user to state
-      commit('SET_USER', user)
+      if (!state.user) {
+        commit('SET_USER', user)
+      }
 
       dispatch('getAllSavedJobs', user)
 
       // fetch user profile
       const userProfile = await fb.usersCollection.doc(user.uid).get()
 
-      // Check if use profile exists, if not then get data from use obj
-      if (!userProfile.exists) {
+      console.log(user)
+
+      // Check if use profile exists, if not then get data from user obj
+      if (!userProfile.exists && !user.displayName) {
         commit('SET_USER_PROFILE', { displayName: user.displayName })
       } else {
         // set user profile in state

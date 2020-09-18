@@ -10,9 +10,7 @@ export const signInRegisterMixin = {
       showPassword: false,
       user: {
         email: '',
-        password: '',
-        name: '',
-        title: ''
+        password: ''
       },
       emailRules: [
         value => !!value || 'Required.',

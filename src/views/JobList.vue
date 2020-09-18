@@ -40,7 +40,7 @@ export default {
   name: 'JobList',
 
   title() {
-    return `JobList — GitHub Jobs`
+    return `JobList`
   },
 
   async beforeRouteEnter(to, from, next) {

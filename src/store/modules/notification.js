@@ -1,6 +1,7 @@
 export const namespaced = true
 
 export const state = {
+  showNotification: false,
   notifications: []
 }
 
@@ -13,9 +14,12 @@ export const mutations = {
       ...notification,
       id
     })
+
+    state.showNotification = true
   },
 
   DELETE(state, notificationToRemove) {
+    state.showNotification = false
     state.notifications = state.notifications.filter(
       notification => notification.id !== notificationToRemove.id
     )

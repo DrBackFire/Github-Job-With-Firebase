@@ -9,9 +9,7 @@
       @keydown="closeModal"
     >
       <v-card>
-        <v-card-title class="headline mt-3 text-center">
-          You Don't have an account?
-        </v-card-title>
+        <v-card-title class="font-weight-bold">You Don't have an account?</v-card-title>
         <v-divider class="mx-4 my-5"></v-divider>
         <v-card-text>
           <BaseSignInOptions />
@@ -19,9 +17,12 @@
           <div class="separator my-3">OR</div>
 
           <v-row justify="center" align="center" class="mt-3">
-            <v-btn text :to="{ name: 'Register' }" block @click="closeModal">
-              New to GitJobs? Create an account
-            </v-btn>
+            <v-btn
+              text
+              :to="{ name: 'Register' }"
+              block
+              @click="closeModal"
+            >New to GitJobs? Create an account</v-btn>
           </v-row>
         </v-card-text>
       </v-card>

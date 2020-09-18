@@ -7,7 +7,7 @@
 <script>
 export default {
   title() {
-    return `Dashboard — GitHub Jobs`
+    return `Dashboard`
   }
 }
 </script>

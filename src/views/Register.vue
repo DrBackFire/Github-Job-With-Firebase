@@ -12,7 +12,7 @@
 import RegisterCard from '@/components/RegisterCard.vue'
 export default {
   title() {
-    return `Register page — GitHub Jobs`
+    return `Register`
   },
   components: {
     RegisterCard
